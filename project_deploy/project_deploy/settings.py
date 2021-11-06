@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+from os import environ
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Application definition
 
@@ -37,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_deploy',
 ]
 
 MIDDLEWARE = [
@@ -73,12 +79,27 @@ WSGI_APPLICATION = 'project_deploy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'mssql',
+            'NAME': environ.get('DB_NAME'),
+            'USER': environ.get('DB_USERNAME'),
+            'PASSWORD': environ.get('DB_PASSWORD'),
+            'HOST': environ.get('DB_HOST'),
+            'PORT': '',
+
+            'OPTIONS': {
+                'driver': 'ODBC Driver 17 for SQL Server',
+            },
+        },
     }
-}
 
 
 # Password validation
