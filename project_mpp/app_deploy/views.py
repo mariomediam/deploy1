@@ -17,9 +17,8 @@ class SelectTrabajadorController(RetrieveAPIView):
         field = request.query_params.get('field')
         valor = request.query_params.get('valor')
 
-        if field and valor:
-            trabajador_list = trabajador.select_trabajador(field, valor)
-            
+        if field and valor:            
+            trabajador_list = trabajador.select_trabajador(field, valor)            
             return Response({'content': trabajador_list}, status=status.HTTP_200_OK)
 
         else:
