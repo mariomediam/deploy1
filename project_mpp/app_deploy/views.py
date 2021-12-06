@@ -7,11 +7,13 @@ from rest_framework import status
 from .serializers import LoginSerializer
 from . import trabajador
 from app_deploy.seguridad.usuario import login
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
 class SelectTrabajadorController(RetrieveAPIView):
     #serializer_class = SelectTrabajadorSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request: Request):
         

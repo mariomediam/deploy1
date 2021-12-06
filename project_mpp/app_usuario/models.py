@@ -56,34 +56,10 @@ class UsuarioModel(AbstractBaseUser, PermissionsMixin):
         return self.n_usuari_nombre
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def is_password_usable(self, encoded_password):
-        print("")
-        print("**************************** is_password_usable **************")
-        print("")
-        return True
-
-    def authenticate(self, request, username=None, password=None):
-        print('')
-        print("************************** authenticateaaa ********************")
-        
-        if username is None:
-            return None
-
-        miUsuario = UsuarioModel.objects.get(pk=username)
-        print(miUsuario)
-        # miUsuario.set_unusable_password()
-        print('02')
-        return miUsuario
-
+        return True    
     
     class Meta:
         db_table = 'usuarios'
