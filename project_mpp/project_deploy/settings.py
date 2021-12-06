@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_deploy',
+    'app_usuario',
     "rest_framework",
     'corsheaders',
 ]
@@ -125,6 +127,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'app_usuario.UsuarioModel'
+
+AUTHENTICATION_BACKENDS = ( 'app_usuario.auth.MyBackend','django.contrib.auth.backends.ModelBackend',)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -142,6 +148,20 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+# brinda toda la configuracion necesaria a mi libreria de DJANGO REST FRAMEWORK
+REST_FRAMEWORK = {
+    # sirve para indicar que la clase encargada de la authenticacion de las rutas de mi API REST las realizara la libreria rest_framework_simplejwt
+    'DEFAULT_AUTHENTICATION_CLASSES': (            
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+# encargada de la configuracion de mi libreria de DRF SIMPLE JWT
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'username',
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+}
+
 
 STATIC_URL = '/static/'
 
